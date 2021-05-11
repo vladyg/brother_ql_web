@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 """
@@ -65,6 +65,8 @@ def get_label_context(request):
       'margin':    int(d.get('margin', 10)),
       'threshold': int(d.get('threshold', 70)),
       'align':         d.get('align', 'center'),
+      'v_align':       d.get('v_align', 'middle'),
+      'h_align':       d.get('h_align', 'center'),
       'orientation':   d.get('orientation', 'standard'),
       'margin_top':    float(d.get('margin_top',    24))/100.,
       'margin_bottom': float(d.get('margin_bottom', 45))/100.,
@@ -98,8 +100,12 @@ def get_label_context(request):
         return ls['dots_printable']
 
     width, height = get_label_dimensions(context['label_size'])
-    if height > width: width, height = height, width
-    if context['orientation'] == 'rotated': height, width = width, height
+    if height > width: 
+        width, height = height, width
+
+    if context['orientation'] == 'rotated': 
+        height, width = width, height
+
     context['width'], context['height'] = width, height
 
     return context
@@ -113,11 +119,13 @@ def create_label_im(text, **kwargs):
     # when there are empty lines in the text:
     lines = []
     for line in text.split('\n'):
-        if line == '': line = ' '
+        if line == '': 
+            line = ' '
         lines.append(line)
     text = '\n'.join(lines)
     linesize = im_font.getsize(text)
     textsize = draw.multiline_textsize(text, font=im_font)
+
     width, height = kwargs['width'], kwargs['height']
     if kwargs['orientation'] == 'standard':
         if label_type in (ENDLESS_LABEL,):
@@ -125,22 +133,38 @@ def create_label_im(text, **kwargs):
     elif kwargs['orientation'] == 'rotated':
         if label_type in (ENDLESS_LABEL,):
             width = textsize[0] + kwargs['margin_left'] + kwargs['margin_right']
+
     im = Image.new('RGB', (width, height), 'white')
     draw = ImageDraw.Draw(im)
+
     if kwargs['orientation'] == 'standard':
         if label_type in (DIE_CUT_LABEL, ROUND_DIE_CUT_LABEL):
             vertical_offset  = (height - textsize[1])//2
             vertical_offset += (kwargs['margin_top'] - kwargs['margin_bottom'])//2
         else:
             vertical_offset = kwargs['margin_top']
-        horizontal_offset = max((width - textsize[0])//2, 0)
+
+        if kwargs['h_align'] == 'left':
+            horizontal_offset = kwargs['margin_left'] # No more left than left margin
+        elif kwargs['h_align'] == 'right':
+            horizontal_offset = max(width - textsize[0] - kwargs['margin_right'], 0)
+        else: # That should be 'center'
+            horizontal_offset = max((width - textsize[0])//2, 0)
+
     elif kwargs['orientation'] == 'rotated':
-        vertical_offset  = (height - textsize[1])//2
-        vertical_offset += (kwargs['margin_top'] - kwargs['margin_bottom'])//2
         if label_type in (DIE_CUT_LABEL, ROUND_DIE_CUT_LABEL):
             horizontal_offset = max((width - textsize[0])//2, 0)
         else:
             horizontal_offset = kwargs['margin_left']
+
+        if kwargs['v_align'] == 'top':
+            vertical_offset = kwargs['margin_top'] # No more left than left margin
+        elif kwargs['v_align'] == 'bottom':
+            vertical_offset = max(height - textsize[1] - kwargs['margin_bottom'], 0)
+        else: # That should be 'middle'
+            vertical_offset  = (height - textsize[1])//2
+            vertical_offset += (kwargs['margin_top'] - kwargs['margin_bottom'])//2
+
     offset = horizontal_offset, vertical_offset
     draw.multiline_text(offset, text, kwargs['fill_color'], font=im_font, align=kwargs['align'])
     return im
@@ -300,3 +324,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+5

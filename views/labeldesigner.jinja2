@@ -28,10 +28,10 @@
               </select>
               <label for="orientation" style="margin-top: 10px; margin-bottom: 0">Label Orientation:</label>
               <div class="radio" style="margin-top: 5px;">
-                <label><input type="radio" onchange="preview()" name="orientation" value="standard" {% if default_orientation == 'standard' %}checked{% endif %}>Standard</label>
+                <label><input type="radio" onchange="preview()" name="orientation" value="standard" >Standard</label>
               </div>
               <div class="radio">
-                <label><input type="radio" onchange="preview()" name="orientation" value="rotated" {% if default_orientation == 'rotated' %}checked{% endif %}>Rotated</label>
+                <label><input type="radio" onchange="preview()" name="orientation" value="rotated" >Rotated</label>
               </div>
               </div> <!-- class="chooser panel-body" -->
             </div>
@@ -41,7 +41,7 @@
               <h4 class="panel-title">
                 <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
                   <span class="glyphicon glyphicon-text-size" aria-hidden="true"></span>
-                  Font Settings
+                  Text Settings
                 </a>
               </h4>
             </div>
@@ -57,7 +57,7 @@
               </select>
               <label for="fontSize" >Font Size:</label>
               <input id="fontSize" class="form-control" type="number" min="1" value="{{ label['DEFAULT_FONT_SIZE'] }}" onChange="preview()" required>
-              <label for="fontAlign" class="control-label input-group">Font Alignment:</label>
+              <label for="fontAlign" class="control-label input-group">Text Alignment:</label>
               <div class="btn-group" data-toggle="buttons">
                   <label class="btn btn-default">
                       <input type="radio" name="fontAlign" onchange="preview()" value="left" aria-label="Left Align"><span class="glyphicon glyphicon-align-left" aria-hidden="true"></span>
@@ -67,6 +67,30 @@
                   </label>
                   <label class="btn btn-default">
                       <input type="radio" name="fontAlign" onchange="preview()" value="right" aria-label="Right Align"><span class="glyphicon glyphicon-align-right" aria-hidden="true"></span>
+                  </label>
+              </div>
+              <label for="textHAlign" class="control-label input-group">Horizontal Alignment:</label>
+              <div class="btn-group" data-toggle="buttons" >
+                  <label class="btn btn-default">
+                      <input type="radio" name="textHAlign" onchange="preview()" value="left" aria-label="Left Align"><span class="glyphicon glyphicon-object-align-left" aria-hidden="true"></span>
+                  </label>
+                  <label class="btn btn-default active">
+                      <input type="radio" name="textHAlign" onchange="preview()" value="center" aria-label="Center Align" checked=""><span class="glyphicon glyphicon-object-align-vertical" aria-hidden="true"></span>
+                  </label>
+                  <label class="btn btn-default">
+                      <input type="radio" name="textHAlign" onchange="preview()" value="right" aria-label="Right Align"><span class="glyphicon glyphicon-object-align-right" aria-hidden="true"></span>
+                  </label>
+              </div>
+              <label for="textVAlign" class="control-label input-group">Vertical Alignment:</label>
+              <div id="textVAlign" class="btn-group" data-toggle="buttons" >
+                  <label class="btn btn-default">
+                      <input type="radio" name="textVAlign" onchange="preview()" value="top" aria-label="Top Align"><span class="glyphicon glyphicon-object-align-top" aria-hidden="true"></span>
+                  </label>
+                  <label class="btn btn-default active">
+                      <input type="radio" name="textVAlign" onchange="preview()" value="middle" aria-label="Middle Align" checked=""><span class="glyphicon glyphicon-object-align-horizontal" aria-hidden="true"></span>
+                  </label>
+                  <label class="btn btn-default">
+                      <input type="radio" name="textVAlign" onchange="preview()" value="bottom" aria-label="Bottom Align"><span class="glyphicon glyphicon-object-align-bottom" aria-hidden="true"></span>
                   </label>
               </div>
               </div> <!-- class="chooser panel-body" -->
@@ -135,6 +159,7 @@
 {% block javascript %}
 var text = $('#labelText');
 
+
 function formData() {
   //var text = $('#labelText').val().replace(/\n/g, "%0A");
   var text = $('#labelText').val();
@@ -145,6 +170,8 @@ function formData() {
     font_size:   $('#fontSize').val(),
     label_size:  $('#labelSize option:selected').val(),
     align:       $('input[name=fontAlign]:checked').val(),
+    h_align:      $('input[name=textHAlign]:checked').val(),
+    v_align:      $('input[name=textVAlign]:checked').val(),
     orientation: $('input[name=orientation]:checked').val(),
     margin_top:    $('#marginTop').val(),
     margin_bottom: $('#marginBottom').val(),
@@ -198,6 +225,15 @@ function print() {
   });
 }
 
+function init() {
+{%- if label['DEFAULT_ORIENTATION'] == 'standard' %}
+    $('input[name="orientation"]').filter("[value='standard']").click();
+{%- else %}
+    $('input[name="orientation"]').filter("[value='rotated']").click();
+{%- endif %}
+}
+
+init()
 preview()
 
 {% endblock %}

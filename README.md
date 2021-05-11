@@ -1,3 +1,33 @@
+##### -- Notes from me --
+
+The story behind the code here, started with a label printer Brother QL-570 that I own.
+Unfortunately it is little old and does not have some extras of the modern label printers as a web design and printing of the labels.
+In addition its label printing software is only for Windows.
+
+Going to the computer, where the printer is attahced or switching of OS-es only to print labels, for me looks not so comfortable.
+
+So I searched around for ideas and I found the project “pklaus/brother_ql_web”.
+It represents a web functionality that allows printing of labels from a web browser.
+
+The project is ideal to be deployed on something small like Raspberry Pi.
+
+So I forked the project and I made little extension of its functionality and minor bug fixes.
+
+Then I evaluated where it is the best to deploy it. I needed a microcomputer that is not so extended like Raspberry Pi (with HDMI, LAN and so on), but to have its own Wifi.
+Luckly I have few [C.H.I.P.](https://en.wikipedia.org/wiki/CHIP_(computer)) (a $9 computer from Next Thing Co., launched via a successful Kickstarter campaign).
+
+On it I deployed all the necessary software, needed for the functionality of the forked “brother_ql_web” project.
+
+As a result I have a label printer that is connected to the home Wifi network and on it I can print labels from desktop or mobile web browser.
+
+I share the idea for anyone that has the same label printer's family (Brother QL) and wants to redo the same, so here it is.
+
+(*Note: It is important the exact printer model to be filled in the config file, because not all of the functionalities are present in the different models)
+
+##### -- The notes of the original project are bellow --
+#
+#
+
 ## brother\_ql\_web
 
 This is a web service to print labels on Brother QL label printers.
