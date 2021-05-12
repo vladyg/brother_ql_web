@@ -1,4 +1,4 @@
-##### -- Notes from me --
+#### -- Notes from me --
 
 The story behind the code here, started with a label printer Brother QL-570 that I own.
 Unfortunately it is little old and does not have some extras of the modern label printers as a web design and printing of the labels.
@@ -23,7 +23,7 @@ As a result I have a label printer that is connected to the home Wifi network an
 I share the idea for anyone that has the same label printer's family (Brother QL) and wants to redo the same, so here it is.
 
 
-** *Notes: **
+**Remarks:**
 
 Added functionality:
 *- Originally the text can be aligned at left, right or at center, but the whole text segment is printed centered to the label. It has been added possability to align the text segment at left, right or at center (respectively when the label is rotatated the adirections are top, bottom and middle).*
@@ -35,7 +35,7 @@ Configuration notes:
 *- It is important the exact printer model to be filled in the config file, because not all of the functionalities are present in the different models.*
 
 
-##### -- The notes of the original project are bellow --
+#### -- The notes of the original project are bellow --
 
 
 
