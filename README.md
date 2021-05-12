@@ -21,23 +21,23 @@ On it I deployed all the necessary software, needed for the functionality of the
 As a result I have a label printer that is connected to the home Wifi network and on it I can print labels from desktop or mobile web browser.
 
 I share the idea for anyone that has the same label printer's family (Brother QL) and wants to redo the same, so here it is.
-#
-#
+
+
 ** *Notes: **
-#
+
 Added functionality:
-*- Originally the text can be aligned at left, right or at center, but the whole text segment is printed centered to the label. It was added possability to align the text segment at left, right or at center. Coresponding when the label is rotatated the adirections are top, bottom and middle.*
-#
+*- Originally the text can be aligned at left, right or at center, but the whole text segment is printed centered to the label. It has been added possability to align the text segment at left, right or at center (respectively when the label is rotatated the adirections are top, bottom and middle).*
+
 Bugfixing:
 *- When the page is loaded for the first time, both checkboxes of label orientation are unchecked.*
-#
+
 Configuration notes: 
 *- It is important the exact printer model to be filled in the config file, because not all of the functionalities are present in the different models.*
 
 
 ##### -- The notes of the original project are bellow --
-#
-#
+
+
 
 ## brother\_ql\_web
 
