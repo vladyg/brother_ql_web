@@ -26,7 +26,7 @@ I share the idea for anyone that has the same label printer's family (Brother QL
 **Remarks:**
 
 Added functionality:
-*- Originally the text can be aligned at left, right or at center, but the whole text segment is printed centered to the label. It has been added possability to align the text segment at left, right or at center (respectively when the label is rotatated the adirections are top, bottom and middle).*
+*- Originally the text can be aligned at left, right or at center, but the whole text segment is printed centered to the label. It has been added possability to align the text segment at left, right or at center (respectively when the label is rotatated the directions are top, bottom and middle).*
 
 Bugfixing:
 *- When the page is loaded for the first time, both checkboxes of label orientation are unchecked.*
